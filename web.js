@@ -1,14 +1,20 @@
-		// Connexion au broker MQTT
+src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.1.0/paho-mqtt.min.js" ; integrity="sha384-7MzBrHzx0xIKZd8H4Jok4qgC0JLzNjHk25r9YrMbNnqjQhdJGdce/ECWTfPn/BwN" ; crossorigin="anonymous"
+        // Connexion au broker MQTT
 	    var client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(1883), "clientId");
 
 		client.connect({
-			onSuccess: function() {
-				console.log("Connecté au broker MQTT");
-			},
-			onFailure: function(message) {
-				console.log("Echec de connexion au broker MQTT: " + message.errorMessage);
-			}
-		});
+            onSuccess: function () {
+                console.log("Connecté au broker MQTT !");
+                // Publication du message sur le topic "isen01"
+                var message = new Paho.MQTT.Message("Hello World !");
+                message.destinationName = "isen01";
+                client.send(message);
+                console.log("Message publié sur le topic isen01 !");
+            },
+            onFailure: function (err) {
+                console.error("Erreur de connexion au broker MQTT : " + err);
+            }
+        });
 
 		// Fonction pour publier un message sur un topic
 		function publierMessage(topic, message) {
