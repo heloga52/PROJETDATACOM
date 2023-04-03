@@ -7,25 +7,24 @@
     <link rel="stylesheet" type="text/css" href="web.css">
 </head>
 <body>
-	<header>
-		<h1>COMMUNICATION AVEC CARTE STM32</h1>
-	</header>
-	<main>
-		<section>
-			<h2>BUTTON</h2>
-			<p>Contenu de la section 1</p>
-		</section>
-		<section>
-			<h2>LED</h2>
-			<p>Contenu de la section 2</p>
-            <button onclick="publierMessage('isen01/led', 'Bonjour')"> LED 1 (BLEU)</button>
-            <button> LED 2 (VERT)</button>
-            <button> LED 2 (JAUNE)</button>
-		</section>
-        <section>
-			<h2>TEMPERATURE</h2>
-			<p>Contenu de la section 2</p>
-		</section>
-	</main>
+	<h1>COMMUNICATION AVEC CARTE STM32</h1>
+
+	<div class="container">
+		<div class="section">
+			<button id="countButton" class="button">Compter</button>
+			<span id="count">0</span>
+		</div>
+
+		<div class="section">
+			<button class="button red">Rouge</button>
+			<button class="button green">Vert</button>
+			<button class="button blue">Bleu</button>
+		</div>
+
+		<div class="section">
+			<h2>Température</h2>
+			<div id="chart" class="chart"></div>
+		</div>
+	</div>
 </body>
 </html>

@@ -1,62 +1,57 @@
-/* Réinitialisation des styles par défaut */
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f1f1f1;
 }
 
-/* Style pour l'en-tête */
-header {
-	background-color: #333;
-	color: #fff;
-	padding: 20px;
-}
-
-/* Style pour le titre principal */
 h1 {
-	font-size: 36px;
-}
-
-/* Style pour la navigation */
-nav {
-	background-color: #ccc;
-	padding: 10px;
-}
-
-/* Style pour les liens de navigation */
-nav a {
 	color: #333;
-	text-decoration: none;
-	padding: 5px 10px;
-}
-
-nav a:hover {
-	background-color: #333;
-	color: #fff;
-}
-
-/* Style pour la section */
-section {
-	padding: 20px;
-	margin: 20px 0;
-	border: 1px solid #ccc;
-}
-
-/* Style pour le sous-titre */
-h2 {
-	font-size: 24px;
-	margin-bottom: 10px;
-}
-
-/* Style pour le contenu de la section */
-p {
-	line-height: 1.5;
-}
-
-/* Style pour le pied de page */
-footer {
-	background-color: #333;
-	color: #fff;
-	padding: 10px;
 	text-align: center;
+	margin-top: 30px;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 50px;
+}
+
+.section {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 30px;
+}
+
+.button {
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	background-color: #007bff;
+	color: #fff;
+	font-size: 16px;
+	margin-right: 20px;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: #0062cc;
+}
+
+.red {
+	background-color: #ff0000;
+}
+
+.green {
+	background-color: #00ff00;
+}
+
+.blue {
+	background-color: #0000ff;
+}
+
+.chart {
+	width: 80%;
+	height: 400px;
+	margin-top: 50px;
 }
