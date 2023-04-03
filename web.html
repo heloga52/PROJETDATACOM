@@ -5,28 +5,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="web.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.1.0/paho-mqtt.min.js"></script>
-	<script>
-		// Connexion au broker MQTT
-		var client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(1883), "clientId");
-
-		client.connect({
-			onSuccess: function() {
-				console.log("Connecté au broker MQTT");
-			},
-			onFailure: function(message) {
-				console.log("Echec de connexion au broker MQTT: " + message.errorMessage);
-			}
-		});
-
-		// Fonction pour publier un message sur un topic
-		function publierMessage(topic, message) {
-			var message = new Paho.MQTT.Message(message);
-			message.destinationName = topic;
-			client.send(message);
-			console.log("Message envoyé sur le topic " + topic + ": " + message.payloadString);
-		}
-	</script>
 </head>
 <body>
 	<header>
