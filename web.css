@@ -1,57 +1,84 @@
+/* Global styles */
 body {
-	font-family: Arial, sans-serif;
-	background-color: #f1f1f1;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
-h1 {
-	color: #333;
-	text-align: center;
-	margin-top: 30px;
+h1, h2 {
+  font-weight: 500;
+  margin-top: 0;
 }
 
 .container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-top: 50px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px;
+  box-sizing: border-box;
 }
 
-.section {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	margin-bottom: 30px;
-}
-
+/* Button styles */
 .button {
-	padding: 10px 20px;
-	border: none;
-	border-radius: 5px;
-	background-color: #007bff;
-	color: #fff;
-	font-size: 16px;
-	margin-right: 20px;
-	cursor: pointer;
+  display: inline-block;
+  border: none;
+  border-radius: 4px;
+  background-color: #4CAF50;
+  color: #fff;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 12px 24px;
+  margin-right: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.button.blue {
+  background-color: #2196F3;
+}
+
+.button.green {
+  background-color: #8BC34A;
+}
+
+.button.red {
+  background-color: #F44336;
+}
+
+.button.temp {
+  background-color: #FFC107;
 }
 
 .button:hover {
-	background-color: #0062cc;
+  background-color: #3e8e41;
 }
 
-.red {
-	background-color: #ff0000;
+/* Section styles */
+.section {
+  margin-bottom: 24px;
 }
 
-.green {
-	background-color: #00ff00;
+.section:last-child {
+  margin-bottom: 0;
 }
 
-.blue {
-	background-color: #0000ff;
+/* Counter styles */
+#count {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 500;
+  margin-left: 12px;
 }
 
-.chart {
-	width: 80%;
-	height: 400px;
-	margin-top: 50px;
+/* Temperature styles */
+#temperature {
+  display: block;
+  font-size: 3rem;
+  font-weight: 500;
+  margin-top: 24px;
+  text-align: center;
 }
