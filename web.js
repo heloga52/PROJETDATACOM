@@ -48,6 +48,9 @@ var stateRed=true;
             console.log("Connected ");
 
             mqtt.subscribe("isen01/led");
+            mqtt.subscribe("isen01/button");
+            mqtt.subscribe("isen01/getTemp");
+            mqtt.subscribe("isen01/temp");
 
             var stringMessage = "{\"id\": 1,\"state\": 1}";
 
@@ -150,13 +153,14 @@ function SwitchLedBlue() {
       }
 
  function getTemperature(){
-                var stringMessage = "{\"request\": 1}";
+    var stringMessage =""
+                  stringMessage = "{\"request\": 1}";
                   message = new Paho.MQTT.Message(stringMessage.toString());
-                  message.destinationName = "isen01/getTemperature";
+                  message.destinationName = "isen01/getTemp";
                   message.retained=true;
                   mqtt.send(message);
                 // Envoi d'une requête de température sur le sujet "temperature"
-                mqttClient.publish('getTemperature', 'get');
+                mqttClient.publish('getTemp', 'get');
         
  }
       
