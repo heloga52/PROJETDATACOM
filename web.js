@@ -163,5 +163,12 @@ function SwitchLedBlue() {
                 mqttClient.publish('getTemp', 'get');
         
  }
+
+mqttClient.on('message', function (topic, message) {
+        if (topic === 'temperature') {
+          // Mise à jour de la température affichée
+          document.getElementById('temperature').innerHTML = message.toString();
+        }
+      });
       
         
