@@ -1,174 +1,203 @@
 var mqtt;
 
-        var reconnectTimeout = 2000;
+var reconnectTimeout = 2000;
 
-        //var host="192.168.1.163"; //change this
+var host="broker.mqttdashboard.com";
 
-        //var host="82.165.158.236";
-
-        //var host="steve-laptop"; //change this
-
-        var host="broker.mqttdashboard.com";
-
-        var port=8000;
+var port=8000;
 
 var stateBlue=true;
 var stateGreen=true;
 var stateRed=true;
 
-        //var port=9001;
+var value_btn1 = 0;
+var value_btn2 = 0;
+var value_totale = 0;
 
-        //var port=8881;
+function onFailure(message) {
 
-       
+    console.log("Connection Attempt to Host "+host+"Failed");
 
-        function onFailure(message) {
+    setTimeout(MQTTconnect, reconnectTimeout);
 
-            console.log("Connection Attempt to Host "+host+"Failed");
+}
 
-            setTimeout(MQTTconnect, reconnectTimeout);
+function onMessageArrived(msg){
 
-        }
+    out_msg="Message received "+msg.payloadString+"<br>";
 
-        function onMessageArrived(msg){
+    out_msg=out_msg+"Message received Topic "+msg.destinationName;
 
-            out_msg="Message received "+msg.payloadString+"<br>";
+    console.log(out_msg);
 
-            out_msg=out_msg+"Message received Topic "+msg.destinationName;
+    if(msg.destinationName == "isen01/temp"){
+                
+        var parsedMessage = JSON.parse(msg.payloadString);
+        var value = parsedMessage.value;
+        console.log(value);
+        document.getElementById("temperature").innerHTML = value+"°";
+    }
 
-            console.log(out_msg);
+    else if(msg.destinationName == "isen01/button"){ 
+        const obj = JSON.parse(msg.payloadString);
+        if(obj.id == 1){
+            console.log(obj.id);
+            value_btn1 ++;
+            console.log(value_btn1);
+            document.getElementById("count_btn1").innerHTML = value_btn1;
+        }
+        else if(obj.id == 2){
+            console.log(obj.id); 
+            value_btn2 ++;
+            console.log(value_btn2);
+            document.getElementById("count_btn2").innerHTML = value_btn2;
+        }
+        value_totale = value_btn1 + value_btn2;
+        console.log(value_totale);
+        document.getElementById("count_total").innerHTML = value_totale;
+    }
 
+}
 
+function onConnect() {
 
+    console.log("Connected ");
 
-        }
+    mqtt.subscribe("isen01/led");
+    mqtt.subscribe("isen01/getTemp");
+    mqtt.subscribe("isen01/button");
+    mqtt.subscribe("isen01/temp");
+    /*test si on est connecté : 
+    var stringMessage = "{\"id\": 1,\"state\": 1}";
+    message = new Paho.MQTT.Message(stringMessage.toString());
+    message.destinationName = "isen01/led";
+    message.retained=true;
+    mqtt.send(message);
+    */
+}
 
-        function onConnect() {
+function MQTTconnect() {
 
-            console.log("Connected ");
+    console.log("connecting to "+ host +" "+ port);
 
-            mqtt.subscribe("isen01/led");
-            mqtt.subscribe("isen01/button");
-            mqtt.subscribe("isen01/getTemp");
-            mqtt.subscribe("isen01/temp");
+    var x=Math.floor(Math.random() * 10000);
 
-            var stringMessage = "{\"id\": 1,\"state\": 1}";
+    var cname="orderform-"+x;
 
-            message = new Paho.MQTT.Message(stringMessage.toString());
+    mqtt = new Paho.MQTT.Client(host,port,cname);
 
-            message.destinationName = "isen01/led";
+    var options = {
 
-            message.retained=true;
+        timeout: 3,
 
-            mqtt.send(message);
+        onSuccess: onConnect,
 
-      }
+        onFailure: onFailure,
 
-      function MQTTconnect() {
+    };
 
-        console.log("connecting to "+ host +" "+ port);
+    mqtt.onMessageArrived = onMessageArrived
 
-            var x=Math.floor(Math.random() * 10000);
+    mqtt.connect(options); //connect
 
-        var cname="orderform-"+x;
-
-        mqtt = new Paho.MQTT.Client(host,port,cname);
-
-        //document.write("connecting to "+ host);
-
-        var options = {
-
-            timeout: 3,
-
-            onSuccess: onConnect,
-
-            onFailure: onFailure,
-
-             };
-
-         mqtt.onMessageArrived = onMessageArrived
-
-         mqtt.connect(options); //connect
-
-        }
-
-      function SwitchLedRed() {
-        var stringMessage ="";
-            if (stateRed) {
-                  var stringMessage = "{\"id\": 3,\"state\": 1}";
-                  message = new Paho.MQTT.Message(stringMessage.toString());
-                  message.destinationName = "isen01/led";
-                  message.retained=true;
-                  mqtt.send(message);
-                  stateRed = false;
-            }
-            else {
-                  var stringMessage = "{\"id\": 3,\"state\": 0}";
-                  message = new Paho.MQTT.Message(stringMessage.toString());
-                  message.destinationName = "isen01/led";
-                  message.retained=true;
-                  mqtt.send(message);
-                  stateRed = true;
-            }
-      }
-
-function SwitchLedGreen() {
-    var stringMessage ="";
-            if (stateGreen) {
-                  stringMessage = "{\"id\": 2,\"state\": 1}";
-                  message = new Paho.MQTT.Message(stringMessage.toString());
-                  message.destinationName = "isen01/led";
-                  message.retained=true;
-                  mqtt.send(message);
-                  stateGreen = false;
-            }
-            else {
-                  stringMessage = "{\"id\": 2,\"state\": 0}";
-                  message = new Paho.MQTT.Message(stringMessage.toString());
-                  message.destinationName = "isen01/led";
-                  message.retained=true;
-                  mqtt.send(message);
-                  stateGreen = true;
-            }
-      }
+}
 
 function SwitchLedBlue() {
     var stringMessage ="";
-            if (stateBlue) {
-                  stringMessage = "{\"id\": 1,\"state\": 1}";
-                  message = new Paho.MQTT.Message(stringMessage.toString());
-                  message.destinationName = "isen01/led";
-                  message.retained=true;
-                  mqtt.send(message);
-                  stateBlue = false;
-            }
-            else {
-                  stringMessage = "{\"id\": 1,\"state\": 0}";
-                  message = new Paho.MQTT.Message(stringMessage.toString());
-                  message.destinationName = "isen01/led";
-                  message.retained=true;
-                  mqtt.send(message);
-                  stateBlue = true;
-            }
-      }
+    if (stateBlue) {
+        stringMessage = "{\"id\": 1,\"state\": 1}";
+        message = new Paho.MQTT.Message(stringMessage.toString());
+        message.destinationName = "isen01/led";
+        message.retained=true;
+        mqtt.send(message);
+        stateBlue = false;
+    }
+    else {
+        stringMessage = "{\"id\": 1,\"state\": 0}";
+        message = new Paho.MQTT.Message(stringMessage.toString());
+        message.destinationName = "isen01/led";
+        message.retained=true;
+        mqtt.send(message);
+        stateBlue = true;
+    }
+}
 
- function getTemperature(){
+function SwitchLedGreen() {
+    var stringMessage ="";
+    if (stateGreen) {
+        stringMessage = "{\"id\": 2,\"state\": 1}";
+        message = new Paho.MQTT.Message(stringMessage.toString());
+        message.destinationName = "isen01/led";
+        message.retained=true;
+        mqtt.send(message);
+        stateGreen = false;
+    }
+    else {
+        stringMessage = "{\"id\": 2,\"state\": 0}";
+        message = new Paho.MQTT.Message(stringMessage.toString());
+        message.destinationName = "isen01/led";
+        message.retained=true;
+        mqtt.send(message);
+        stateGreen = true;
+    }
+}
+
+function SwitchLedRed() {
+    var stringMessage ="";
+    if (stateRed) {
+        var stringMessage = "{\"id\": 3,\"state\": 1}";
+        message = new Paho.MQTT.Message(stringMessage.toString());
+        message.destinationName = "isen01/led";
+        message.retained=true;
+        mqtt.send(message);
+        stateRed = false;
+    }
+    else {
+        var stringMessage = "{\"id\": 3,\"state\": 0}";
+        message = new Paho.MQTT.Message(stringMessage.toString());
+        message.destinationName = "isen01/led";
+        message.retained=true;
+        mqtt.send(message);
+        stateRed = true;
+    }
+}
+/*
+function getTemperature(){
     var stringMessage =""
-                  stringMessage = "{\"request\": 1}";
-                  message = new Paho.MQTT.Message(stringMessage.toString());
-                  message.destinationName = "isen01/getTemp";
-                  message.retained=true;
-                  mqtt.send(message);
-                // Envoi d'une requête de température sur le sujet "temperature"
-                mqttClient.publish('getTemp', 'get');
-        
- }
+        stringMessage = "{\"request\": 1}";
+        message = new Paho.MQTT.Message(stringMessage.toString());
+        message.destinationName = "isen01/getTemp";
+        message.retained=true;
+        mqtt.send(message);     
+}  
+*/
+/*Problème: on reçoit un message de toutes les subscriptions dès le début */
+/*FONCTIONS POUR TEST QUAND LA CARTE N'EST PAS DISPONIBLE*/
+/*METTRE EN COMMENTAIRE AUSSI DANS WEB.HTML LES APPELS DES FONCTIONS */
 
-mqttClient.on('message', function (topic, message) {
-        if (topic === 'temperature') {
-          // Mise à jour de la température affichée
-          document.getElementById('temperature').innerHTML = message.toString();
-        }
-      });
-      
-        
+function getTemperature(){
+    var stringMessage =""
+                  stringMessage = "{\"value\": 27}";
+                  message = new Paho.MQTT.Message(stringMessage.toString());
+                  message.destinationName = "isen01/temp";
+                  message.retained=true;
+                  mqtt.send(message);     
+ }  
+
+ function incrementation_btn1(){
+    var stringMessage =""
+                  stringMessage = "{\"id\": 1}";
+                  message = new Paho.MQTT.Message(stringMessage.toString());
+                  message.destinationName = "isen01/button";
+                  message.retained=true;
+                  mqtt.send(message);     
+ } 
+ function incrementation_btn2(){
+    var stringMessage =""
+                  stringMessage = "{\"id\": 2}";
+                  message = new Paho.MQTT.Message(stringMessage.toString());
+                  message.destinationName = "isen01/button";
+                  message.retained=true;
+                  mqtt.send(message);     
+ } 
+    
