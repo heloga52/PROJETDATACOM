@@ -148,5 +148,16 @@ function SwitchLedBlue() {
                   stateBlue = true;
             }
       }
+
+ function getTemperature(){
+                var stringMessage = "{\"request\": 1}";
+                  message = new Paho.MQTT.Message(stringMessage.toString());
+                  message.destinationName = "isen01/getTemperature";
+                  message.retained=true;
+                  mqtt.send(message);
+                // Envoi d'une requête de température sur le sujet "temperature"
+                mqttClient.publish('getTemperature', 'get');
+        
+ }
       
         
