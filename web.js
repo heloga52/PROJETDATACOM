@@ -10,15 +10,15 @@ var mqtt;
 
         var host="broker.mqttdashboard.com";
 
-        var port=8000
+        var port=8000;
+
+var stateBlue=true;
+var stateGreen=true;
+var stateRed=true;
 
         //var port=9001;
 
         //var port=8881;
-        
-        var stateRed = 1;
-        var stateGreen = 1;
-        var stateBlue = 1;
 
        
 
@@ -89,14 +89,15 @@ var mqtt;
 
         }
 
-      function SwitchLedRed(stateRed) {
-            if (stateRed == 1) {
+      function SwitchLedRed() {
+        var stringMessage ="";
+            if (stateRed) {
                   var stringMessage = "{\"id\": 3,\"state\": 1}";
                   message = new Paho.MQTT.Message(stringMessage.toString());
                   message.destinationName = "isen01/led";
                   message.retained=true;
                   mqtt.send(message);
-                  stateRed = 0;
+                  stateRed = false;
             }
             else {
                   var stringMessage = "{\"id\": 3,\"state\": 0}";
@@ -104,45 +105,47 @@ var mqtt;
                   message.destinationName = "isen01/led";
                   message.retained=true;
                   mqtt.send(message);
-                  stateRed = 1;
+                  stateRed = true;
             }
       }
 
-function SwitchLedGreen(stateGreen) {
-            if (stateGreen == 1) {
-                  var stringMessage = "{\"id\": 2,\"state\": 1}";
+function SwitchLedGreen() {
+    var stringMessage ="";
+            if (stateGreen) {
+                  stringMessage = "{\"id\": 2,\"state\": 1}";
                   message = new Paho.MQTT.Message(stringMessage.toString());
                   message.destinationName = "isen01/led";
                   message.retained=true;
                   mqtt.send(message);
-                  stateGreen = 0;
+                  stateGreen = false;
             }
             else {
-                  var stringMessage = "{\"id\": 2,\"state\": 0}";
+                  stringMessage = "{\"id\": 2,\"state\": 0}";
                   message = new Paho.MQTT.Message(stringMessage.toString());
                   message.destinationName = "isen01/led";
                   message.retained=true;
                   mqtt.send(message);
-                  stateGreen = 1;
+                  stateGreen = true;
             }
       }
 
-function SwitchLedBlue(stateBlue) {
-            if (stateBlue == 1) {
-                  var stringMessage = "{\"id\": 1,\"state\": 1}";
+function SwitchLedBlue() {
+    var stringMessage ="";
+            if (stateBlue) {
+                  stringMessage = "{\"id\": 1,\"state\": 1}";
                   message = new Paho.MQTT.Message(stringMessage.toString());
                   message.destinationName = "isen01/led";
                   message.retained=true;
                   mqtt.send(message);
-                  stateBlue = 0;
+                  stateBlue = false;
             }
             else {
-                  var stringMessage = "{\"id\": 1,\"state\": 0}";
+                  stringMessage = "{\"id\": 1,\"state\": 0}";
                   message = new Paho.MQTT.Message(stringMessage.toString());
                   message.destinationName = "isen01/led";
                   message.retained=true;
                   mqtt.send(message);
-                  stateBlue = 1;
+                  stateBlue = true;
             }
       }
       
