@@ -84,3 +84,18 @@ var mqtt;
          mqtt.connect(options); //connect
 
         }
+
+      function SwitchLedRed() {
+        var stringMessage = "{\"id\": 3,\"state\": 1}";
+
+            message = new Paho.MQTT.Message(stringMessage.toString());
+
+            message.destinationName = "isen01/led";
+
+            message.retained=true;
+
+            mqtt.send(message);
+      }
+
+      
+        
