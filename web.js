@@ -161,7 +161,7 @@ function SwitchLedRed() {
         stateRed = true;
     }
 }
-/*
+
 function getTemperature(){
     var stringMessage =""
         stringMessage = "{\"request\": 1}";
@@ -170,11 +170,11 @@ function getTemperature(){
         message.retained=true;
         mqtt.send(message);     
 }  
-*/
+
 /*Problème: on reçoit un message de toutes les subscriptions dès le début */
 /*FONCTIONS POUR TEST QUAND LA CARTE N'EST PAS DISPONIBLE*/
 /*METTRE EN COMMENTAIRE AUSSI DANS WEB.HTML LES APPELS DES FONCTIONS */
-
+/*
 function getTemperature(){
     var stringMessage =""
                   stringMessage = "{\"value\": 27}";
@@ -200,4 +200,4 @@ function getTemperature(){
                   message.retained=true;
                   mqtt.send(message);     
  } 
-    
+ */   
