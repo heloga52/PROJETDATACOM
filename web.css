@@ -1,4 +1,6 @@
-/* Global styles */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
@@ -9,8 +11,11 @@ body {
 }
 
 h1, h2 {
-  font-weight: 500;
-  margin-top: 0;
+  text-align: center;
+  color: #006633; 
+  font-family: 'Montserrat', sans-serif;
+  text-shadow: 2px 2px 2px #99CC99;
+  letter-spacing: 1px;
 }
 
 .container {
