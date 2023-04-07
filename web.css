@@ -3,7 +3,9 @@
 
 body {
   background-image: url(fond_ecran.png);
- 
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 h1, h2 {
@@ -12,7 +14,7 @@ h1, h2 {
   font-family: 'Montserrat', sans-serif;
   text-shadow: 2px 2px 2px #99CC99;
   letter-spacing: 1px;
-   font-size: 36px; 
+  font-size: 36px; 
   font-weight: bold;
 }
 
