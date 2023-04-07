@@ -13,21 +13,25 @@
 	<h1>My E-Garden MQTT</h1>
 	<div class="container">
 		<div class="section">
-			<button id="countButton" class="button" onclick="incrementation_btn1()">btn 1</button>
-			<span id="count_btn1">0</span>
-			<button id="countButton" class="button" onclick="incrementation_btn2()">btn 2</button>
-			<span id="count_btn2">0</span>
-			<p>Total : <span id="count_total"></span></p>
-		</div>
-		<div class="section">
-			<button class="button blue" onclick="SwitchLedBlue()">Bleu</button>
-			<button class="button green" onclick="SwitchLedGreen()">Vert</button>
-			<button class="button red" onclick="SwitchLedRed()">Rouge</button>
-		</div>
-		<div class="section">
 			<h2>Température actuelle</h2>
 			<button class="button temp" onclick="getTemperature()">Requête pour Température</button>
-			<p>La température est : <span id="temperature"></span></p>
+			<p>La température de la salle de potager est : <span id="temperature"></span></p>
+
+			
+		</div>
+		<div class="section">
+			<h3>Allumer les lampes chauffantes</h3>
+			<button class="button blue" onclick="SwitchLedBlue()">Potager 1</button>
+			<button class="button green" onclick="SwitchLedGreen()">Potager 2</button>
+			<button class="button red" onclick="SwitchLedRed()">Potager 3</button>
+		</div>
+		<div class="section">
+			<h4>Allumer les climatisations</h4>
+			<button id="countButton" class="button" onclick="incrementation_btn1()">Climatisation 1</button>
+			<span id="count_btn1">0</span>
+			<button id="countButton" class="button" onclick="incrementation_btn2()">Climatisation 2</button>
+			<span id="count_btn2">0</span>
+			<p>Total : <span id="count_total"></span></p>
 		</div>
 	</div>
 	
