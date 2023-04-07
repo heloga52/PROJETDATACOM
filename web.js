@@ -14,6 +14,9 @@ var value_btn1 = 0;
 var value_btn2 = 0;
 var value_totale = 0;
 
+var clim1 = 0;
+var clim2 = 0;
+
 function onFailure(message) {
 
     console.log("Connection Attempt to Host "+host+"Failed");
@@ -45,12 +48,28 @@ function onMessageArrived(msg){
             value_btn1 ++;
             console.log(value_btn1);
             document.getElementById("count_btn1").innerHTML = value_btn1;
+            if(clim1 ==0){
+            clim1 = 1;
+            console.log(clim1);
+            }
+            else if(clim1 ==1){
+                clim1 = 0;
+                console.log(clim1);
+                }
         }
         else if(obj.id == 2){
             console.log(obj.id); 
             value_btn2 ++;
             console.log(value_btn2);
             document.getElementById("count_btn2").innerHTML = value_btn2;
+            if(clim2 ==0){
+                clim2 = 1;
+                console.log(clim2);
+                }
+                else if(clim2 ==1){
+                    clim2 = 0;
+                    console.log(clim2);
+                    }
         }
         value_totale = value_btn1 + value_btn2;
         console.log(value_totale);
