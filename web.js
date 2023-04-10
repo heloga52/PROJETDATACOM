@@ -10,12 +10,17 @@ var stateBlue=true;
 var stateGreen=true;
 var stateRed=true;
 
-var value_btn1 = 0;
-var value_btn2 = 0;
-var value_totale = 0;
+var potager = 1;
 
-var clim1 = 0;
-var clim2 = 0;
+var temp1 = Math.floor(Math.random() * (30 - 15 + 1) + 15);
+var temp2 = Math.floor(Math.random() * (30 - 15 + 1) + 15);
+var temp3 = Math.floor(Math.random() * (30 - 15 + 1) + 15);
+
+const max = 30;
+const min = 15;
+let intervalId;
+
+
 
 function onFailure(message) {
 
@@ -25,7 +30,7 @@ function onFailure(message) {
 
 }
 
-function onMessageArrived(msg){
+async function onMessageArrived(msg){
 
     out_msg="Message received "+msg.payloadString+"<br>";
 
@@ -39,41 +44,172 @@ function onMessageArrived(msg){
         var value = parsedMessage.value;
         console.log(value);
         document.getElementById("temperature").innerHTML = value+"°";
+        
+        document.getElementById("temperature1").innerHTML = temp1+"°";
+        document.getElementById("temperature2").innerHTML = temp2+"°";
+        document.getElementById("temperature3").innerHTML = temp3+"°";
+        document.getElementById("indice1").innerHTML = temp1+"°";
+        document.getElementById("indice2").innerHTML = temp2+"°";
+        document.getElementById("indice3").innerHTML = temp3+"°";
+        var y = document.getElementById("myImage7");
+        if (temp1 >20){
+            y.src = "image_web/chaud.png";
+        } else y.src = "image_web/ideale.png";
+        var y = document.getElementById("myImage8");
+        if (temp2 <20){
+            y.src = "image_web/froid.png";
+        } else if (temp2 >=20 && temp2<=25) y.src = "image_web/ideale.png";
+        else y.src = "image_web/chaud.png";
+        var y = document.getElementById("myImage9");
+        if (temp3 <25){
+            y.src = "image_web/froid.png";
+        } else y.src = "image_web/ideale.png";
     }
 
     else if(msg.destinationName == "isen01/button"){ 
         const obj = JSON.parse(msg.payloadString);
         if(obj.id == 1){
-            console.log(obj.id);
-            value_btn1 ++;
-            console.log(value_btn1);
-            document.getElementById("count_btn1").innerHTML = value_btn1;
-            if(clim1 ==0){
-            clim1 = 1;
-            console.log(clim1);
+            /*BTN1 */
+            if(potager == 1){
+                var monElement = document.getElementById("potager2");
+                monElement.style.border = "4px solid green";
+                var monElement = document.getElementById("potager1");
+                monElement.style.border = "None";
+                var monElement = document.getElementById("potager3");
+                monElement.style.border = "None";
+
+                potager =2;
+                SwitchLedGreen();
             }
-            else if(clim1 ==1){
-                clim1 = 0;
-                console.log(clim1);
-                }
+            else if(potager == 2){
+                var monElement = document.getElementById("potager3");
+                monElement.style.border = "4px solid red";
+                var monElement = document.getElementById("potager2");
+                monElement.style.border = "None";
+                var monElement = document.getElementById("potager2");
+                monElement.style.border = "None";
+
+                potager =3;
+                SwitchLedRed();
+            }
+            else if(potager == 3){
+                var monElement = document.getElementById("potager1");
+                monElement.style.border = "4px solid blue";
+                var monElement = document.getElementById("potager2");
+                monElement.style.border = "None";
+                var monElement = document.getElementById("potager3");
+                monElement.style.border = "None";
+
+                potager =1;
+                SwitchLedBlue();
+            }
+            
         }
         else if(obj.id == 2){
-            console.log(obj.id); 
-            value_btn2 ++;
-            console.log(value_btn2);
-            document.getElementById("count_btn2").innerHTML = value_btn2;
-            if(clim2 ==0){
-                clim2 = 1;
-                console.log(clim2);
-                }
-                else if(clim2 ==1){
-                    clim2 = 0;
-                    console.log(clim2);
-                    }
+           /* BTN2*/
+           if(potager == 1){
+            var x = document.getElementById("myImage4");
+            var image = document.getElementById('myImage1');
+            if (image.src.match("lampe")) {
+                x.src = "image_web/chaleur.png";
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                    await attente();
+                        temp1 +=3;
+                        if(temp1 >max)temp1 = max;
+                        
+                        x.style.display = "none";
+                      
+                  } else {
+                    x.style.display = "none";
+                  }
+            } 
+            else if (image.src.match("arrosoir")) {
+              x.src = "image_web/eau.png";
+              if (x.style.display === "none") {
+                x.style.display = "block";
+                await attente();
+                    temp1 -=3;
+                    if(temp1 <min)temp1 = min;
+                        x.style.display = "none";
+                  
+              } else {
+                x.style.display = "none";
+              }
+            }
+            var y = document.getElementById("myImage7");
+            if (temp1 >20){
+                y.src = "image_web/chaud.png";
+            } else y.src = "image_web/ideale.png";
+  
         }
-        value_totale = value_btn1 + value_btn2;
-        console.log(value_totale);
-        document.getElementById("count_total").innerHTML = value_totale;
+        else if(potager == 2){
+            var x = document.getElementById("myImage5");
+            var image = document.getElementById('myImage2');
+            if (image.src.match("lampe")) {
+                x.src = "image_web/chaleur.png";
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                    await attente();
+                        temp2 +=3;
+                        if(temp2 >max)temp2 = max;
+                        x.style.display = "none";
+                      
+                  } else {
+                    x.style.display = "none";
+                  }
+            } 
+            else if (image.src.match("arrosoir")) {
+              x.src = "image_web/eau.png";
+              if (x.style.display === "none") {
+                x.style.display = "block";
+                await attente();
+                    temp2 -=3;
+                    if(temp2 <min)temp2 = min;
+                        x.style.display = "none";
+              } else {
+                x.style.display = "none";
+              }
+            }
+            var y = document.getElementById("myImage8");
+            if (temp2 <20){
+                y.src = "image_web/froid.png";
+            } else if (temp2 >=20 && temp2<=25) y.src = "image_web/ideale.png";
+            else y.src = "image_web/chaud.png";
+        }
+        else if(potager == 3){
+            var x = document.getElementById("myImage6");
+            var image = document.getElementById('myImage3');
+            if (image.src.match("lampe")) {
+                x.src = "image_web/chaleur.png";
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                    await attente();
+                        temp3 +=3;
+                        if(temp3 >max)temp3 = max;
+                        x.style.display = "none";
+                  } else {
+                    x.style.display = "none";
+                  }
+            } 
+            else if (image.src.match("arrosoir")) {
+              x.src = "image_web/eau.png";
+              if (x.style.display === "none") {
+                x.style.display = "block";
+                await attente();
+                    temp3 -=3;
+                    if(temp3 <min)temp3 = min;
+                    x.style.display = "none";
+              } else {
+                x.style.display = "none";
+              }
+            }
+            var y = document.getElementById("myImage9");
+            if (temp3 <25){
+                y.src = "image_web/froid.png";
+            } else y.src = "image_web/ideale.png";
+            }
+        }
     }
 
 }
@@ -121,6 +257,66 @@ function MQTTconnect() {
 
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async function attente() {
+    await sleep(4000);
+  }
+
+
+function changeImageLum() {
+    
+    if(potager == 1){
+        changeImage1();
+    }
+    else if(potager == 2){
+        changeImage2();
+    }
+    else if(potager == 3){
+        changeImage3();
+        }
+
+  }
+
+function changeImageArr() {
+    if(potager == 1){
+        changeImage4();
+    }
+    else if(potager == 2){
+        changeImage5();
+    }
+    else if(potager == 3){
+        changeImage6();
+        }
+  }
+
+function changeImage1() {
+    var image = document.getElementById('myImage1');
+    image.src = "image_web/lampe.png";
+  }
+  function changeImage2() {
+    var image = document.getElementById('myImage2');
+    image.src = "image_web/lampe.png";
+  }
+  function changeImage3() {
+    var image = document.getElementById('myImage3');
+    image.src = "image_web/lampe.png";
+  }
+  function changeImage4() {
+    var image = document.getElementById('myImage1');
+      image.src = "image_web/arrosoir.png";
+  }
+  function changeImage5() {
+    var image = document.getElementById('myImage2');
+      image.src = "image_web/arrosoir.png";
+  }
+  function changeImage6() {
+    var image = document.getElementById('myImage3');
+      image.src = "image_web/arrosoir.png";
+  }
+
 function SwitchLedBlue() {
     var stringMessage ="";
     if (stateBlue) {
@@ -129,7 +325,18 @@ function SwitchLedBlue() {
         message.destinationName = "isen01/led";
         message.retained=true;
         mqtt.send(message);
+        stringMessage = "{\"id\": 2,\"state\": 0}";
+        message = new Paho.MQTT.Message(stringMessage.toString());
+        message.destinationName = "isen01/led";
+        message.retained=true;
+        mqtt.send(message);
+        stringMessage = "{\"id\": 3,\"state\": 0}";
+        message = new Paho.MQTT.Message(stringMessage.toString());
+        message.destinationName = "isen01/led";
+        message.retained=true;
+        mqtt.send(message);
         stateBlue = false;
+        stateGreen = true;
     }
     else {
         stringMessage = "{\"id\": 1,\"state\": 0}";
@@ -149,7 +356,18 @@ function SwitchLedGreen() {
         message.destinationName = "isen01/led";
         message.retained=true;
         mqtt.send(message);
+        stringMessage = "{\"id\": 1,\"state\": 0}";
+        message = new Paho.MQTT.Message(stringMessage.toString());
+        message.destinationName = "isen01/led";
+        message.retained=true;
+        mqtt.send(message);
+        stringMessage = "{\"id\": 3,\"state\": 0}";
+        message = new Paho.MQTT.Message(stringMessage.toString());
+        message.destinationName = "isen01/led";
+        message.retained=true;
+        mqtt.send(message);
         stateGreen = false;
+        stateRed = true;
     }
     else {
         stringMessage = "{\"id\": 2,\"state\": 0}";
@@ -164,12 +382,23 @@ function SwitchLedGreen() {
 function SwitchLedRed() {
     var stringMessage ="";
     if (stateRed) {
-        var stringMessage = "{\"id\": 3,\"state\": 1}";
+        stringMessage = "{\"id\": 3,\"state\": 1}";
+        message = new Paho.MQTT.Message(stringMessage.toString());
+        message.destinationName = "isen01/led";
+        message.retained=true;
+        mqtt.send(message);
+        stringMessage = "{\"id\": 1,\"state\": 0}";
+        message = new Paho.MQTT.Message(stringMessage.toString());
+        message.destinationName = "isen01/led";
+        message.retained=true;
+        mqtt.send(message);
+        stringMessage = "{\"id\": 2,\"state\": 0}";
         message = new Paho.MQTT.Message(stringMessage.toString());
         message.destinationName = "isen01/led";
         message.retained=true;
         mqtt.send(message);
         stateRed = false;
+        stateBlue = true;
     }
     else {
         var stringMessage = "{\"id\": 3,\"state\": 0}";
@@ -180,7 +409,7 @@ function SwitchLedRed() {
         stateRed = true;
     }
 }
-
+/*
 function getTemperature(){
     var stringMessage =""
         stringMessage = "{\"request\": 1}";
@@ -189,18 +418,38 @@ function getTemperature(){
         message.retained=true;
         mqtt.send(message);     
 }  
-
+*/
 /*Problème: on reçoit un message de toutes les subscriptions dès le début */
 /*FONCTIONS POUR TEST QUAND LA CARTE N'EST PAS DISPONIBLE*/
 /*METTRE EN COMMENTAIRE AUSSI DANS WEB.HTML LES APPELS DES FONCTIONS */
-/*
-function getTemperature(){
+
+function getTemperature() {
     var stringMessage =""
                   stringMessage = "{\"value\": 27}";
                   message = new Paho.MQTT.Message(stringMessage.toString());
                   message.destinationName = "isen01/temp";
                   message.retained=true;
-                  mqtt.send(message);     
+                  mqtt.send(message);  
+                  document.getElementById("temperature1").innerHTML = temp1+"°";
+                  document.getElementById("temperature2").innerHTML = temp2+"°";
+                  document.getElementById("temperature3").innerHTML = temp3+"°";
+                  document.getElementById("indice1").innerHTML = temp1+"°";
+                  document.getElementById("indice2").innerHTML = temp2+"°";
+                  document.getElementById("indice3").innerHTML = temp3+"°";
+                  var a = document.getElementById("myImage9");
+            if (temp3 <25){
+                a.src = "image_web/froid.png";
+            } else a.src = "image_web/ideale.png"
+            var b = document.getElementById("myImage8");
+            if (temp2 <20){
+                b.src = "image_web/froid.png";
+            } else if (temp2 >=20 && temp2<=25) b.src = "image_web/ideale.png";
+            else b.src = "image_web/chaud";
+            var c = document.getElementById("myImage7");
+            if (temp1 >20){
+                c.src = "image_web/chaud.png";
+            } else c.src = "image_web/ideale.png";
+            
  }  
 
  function incrementation_btn1(){
@@ -219,4 +468,4 @@ function getTemperature(){
                   message.retained=true;
                   mqtt.send(message);     
  } 
- */   
+    
