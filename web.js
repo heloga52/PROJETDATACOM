@@ -51,16 +51,16 @@ async function onMessageArrived(msg){
         document.getElementById("indice1").innerHTML = temp1+"°";
         document.getElementById("indice2").innerHTML = temp2+"°";
         document.getElementById("indice3").innerHTML = temp3+"°";
-        var y = document.getElementById("myImage7");
+        var y = document.getElementById("ideale1");
         if (temp1 >20){
             y.src = "image_web/chaud.png";
         } else y.src = "image_web/ideale.png";
-        var y = document.getElementById("myImage8");
+        var y = document.getElementById("ideale2");
         if (temp2 <20){
             y.src = "image_web/froid.png";
         } else if (temp2 >=20 && temp2<=25) y.src = "image_web/ideale.png";
         else y.src = "image_web/chaud.png";
-        var y = document.getElementById("myImage9");
+        var y = document.getElementById("ideale3");
         if (temp3 <25){
             y.src = "image_web/froid.png";
         } else y.src = "image_web/ideale.png";
@@ -108,8 +108,8 @@ async function onMessageArrived(msg){
         else if(obj.id == 2){
            /* BTN2*/
            if(potager == 1){
-            var x = document.getElementById("myImage4");
-            var image = document.getElementById('myImage1');
+            var x = document.getElementById("chaleur1");
+            var image = document.getElementById("lampe1");
             if (image.src.match("lampe")) {
                 x.src = "image_web/chaleur.png";
                 if (x.style.display === "none") {
@@ -137,15 +137,15 @@ async function onMessageArrived(msg){
                 x.style.display = "none";
               }
             }
-            var y = document.getElementById("myImage7");
+            var y = document.getElementById("ideale1");
             if (temp1 >20){
                 y.src = "image_web/chaud.png";
             } else y.src = "image_web/ideale.png";
   
         }
         else if(potager == 2){
-            var x = document.getElementById("myImage5");
-            var image = document.getElementById('myImage2');
+            var x = document.getElementById("chaleur2");
+            var image = document.getElementById("lampe2");
             if (image.src.match("lampe")) {
                 x.src = "image_web/chaleur.png";
                 if (x.style.display === "none") {
@@ -171,15 +171,15 @@ async function onMessageArrived(msg){
                 x.style.display = "none";
               }
             }
-            var y = document.getElementById("myImage8");
+            var y = document.getElementById("ideale2");
             if (temp2 <20){
                 y.src = "image_web/froid.png";
             } else if (temp2 >=20 && temp2<=25) y.src = "image_web/ideale.png";
             else y.src = "image_web/chaud.png";
         }
         else if(potager == 3){
-            var x = document.getElementById("myImage6");
-            var image = document.getElementById('myImage3');
+            var x = document.getElementById("chaleur3");
+            var image = document.getElementById("lampe3");
             if (image.src.match("lampe")) {
                 x.src = "image_web/chaleur.png";
                 if (x.style.display === "none") {
@@ -204,7 +204,7 @@ async function onMessageArrived(msg){
                 x.style.display = "none";
               }
             }
-            var y = document.getElementById("myImage9");
+            var y = document.getElementById("ideale3");
             if (temp3 <25){
                 y.src = "image_web/froid.png";
             } else y.src = "image_web/ideale.png";
@@ -266,54 +266,54 @@ function sleep(ms) {
   }
 
 
-function changeImageLum() {
+function changeImageLampe() {
     
     if(potager == 1){
-        changeImage1();
+        changeLampe1();
     }
     else if(potager == 2){
-        changeImage2();
+        changeLampe2();
     }
     else if(potager == 3){
-        changeImage3();
+        changeLampe3();
         }
 
   }
 
 function changeImageArr() {
     if(potager == 1){
-        changeImage4();
+        changeArr1();
     }
     else if(potager == 2){
-        changeImage5();
+        changeArr2();
     }
     else if(potager == 3){
-        changeImage6();
+        changeArr3();
         }
   }
 
-function changeImage1() {
-    var image = document.getElementById('myImage1');
+function changeLampe1() {
+    var image = document.getElementById("Lum_Arr1');
     image.src = "image_web/lampe.png";
   }
-  function changeImage2() {
-    var image = document.getElementById('myImage2');
+  function changeLampe2() {
+    var image = document.getElementById('Lum_Arr2');
     image.src = "image_web/lampe.png";
   }
-  function changeImage3() {
-    var image = document.getElementById('myImage3');
+  function changeLampe3() {
+    var image = document.getElementById('Lum_Arr3');
     image.src = "image_web/lampe.png";
   }
-  function changeImage4() {
-    var image = document.getElementById('myImage1');
+  function changeArr1() {
+    var image = document.getElementById('Lum_Arr1');
       image.src = "image_web/arrosoir.png";
   }
-  function changeImage5() {
-    var image = document.getElementById('myImage2');
+  function changeArr2() {
+    var image = document.getElementById('Lum_Arr2');
       image.src = "image_web/arrosoir.png";
   }
-  function changeImage6() {
-    var image = document.getElementById('myImage3');
+  function changeArr3() {
+    var image = document.getElementById('Lum_Arr3');
       image.src = "image_web/arrosoir.png";
   }
 
@@ -436,16 +436,16 @@ function getTemperature() {
                   document.getElementById("indice1").innerHTML = temp1+"°";
                   document.getElementById("indice2").innerHTML = temp2+"°";
                   document.getElementById("indice3").innerHTML = temp3+"°";
-                  var a = document.getElementById("myImage9");
+                  var a = document.getElementById("ideale3");
             if (temp3 <25){
                 a.src = "image_web/froid.png";
             } else a.src = "image_web/ideale.png"
-            var b = document.getElementById("myImage8");
+            var b = document.getElementById("ideale2");
             if (temp2 <20){
                 b.src = "image_web/froid.png";
             } else if (temp2 >=20 && temp2<=25) b.src = "image_web/ideale.png";
             else b.src = "image_web/chaud";
-            var c = document.getElementById("myImage7");
+            var c = document.getElementById("ideale1");
             if (temp1 >20){
                 c.src = "image_web/chaud.png";
             } else c.src = "image_web/ideale.png";
