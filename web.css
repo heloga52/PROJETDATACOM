@@ -47,6 +47,7 @@ header h1 {
   font-weight: bold;
   cursor: pointer;
 }
+
 .select_mode:hover {
   background-color: #3e8e41;
   color: rgb(209, 255, 151);
@@ -56,14 +57,13 @@ header h1 {
   position: absolute;
   right: 0;
   margin-right: 0.5%;
-
   text-align: center;
-color: #006633; 
-font-family: 'Montserrat', sans-serif;
-text-shadow: 2px 2px 2px #99CC99;
-letter-spacing: 1px;
-font-size: 120%; 
-font-weight: bold;
+  color: #006633; 
+  font-family: 'Montserrat', sans-serif;
+  text-shadow: 2px 2px 2px #99CC99;
+  letter-spacing: 1px;
+  font-size: 120%; 
+  font-weight: bold;
 }
 
 .getTemperature:hover {
@@ -98,8 +98,6 @@ cursor: pointer;
   text-align: center;
   margin-top: 1%;
   padding: 0.5%;
-
-  
   color: #006633; 
   font-family: 'Montserrat', sans-serif;
   text-shadow: 2px 2px 2px #99CC99;
@@ -107,6 +105,7 @@ cursor: pointer;
   font-size: 100%; 
   font-weight: bold;
 }
+
 .column2 {
   display: flex;
   flex-direction: column;
@@ -115,19 +114,17 @@ cursor: pointer;
   margin: 1%;
   padding: 5%;
 }
+
 .column3{
   display: flex;
   flex-direction: column;
   position: absolute;
-  
   margin-left: 85%;
   border: 2px solid #484848;
   border-radius: 4px;
   text-align: center;
   margin-top: 1%;
   padding: 0.5%;
-
-  
   color: #006633; 
   font-family: 'Montserrat', sans-serif;
   text-shadow: 2px 2px 2px #99CC99;
@@ -156,12 +153,14 @@ cursor: pointer;
 .image-button2 img {
   width: 40px;
 }
+
 .image-button3 {
   border: none;
   background-color: transparent;
   padding: 0;
   margin-left: 20%;
 }
+
 .image-button3 img {
   width: 100px;
 }
