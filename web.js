@@ -109,7 +109,7 @@ async function onMessageArrived(msg){
            /* BTN2*/
            if(potager == 1){
             var x = document.getElementById("chaleur1");
-            var image = document.getElementById("lampe1");
+            var image = document.getElementById("Lum_Arr1");
             if (image.src.match("lampe")) {
                 x.src = "image_web/chaleur.png";
                 if (x.style.display === "none") {
@@ -145,7 +145,7 @@ async function onMessageArrived(msg){
         }
         else if(potager == 2){
             var x = document.getElementById("chaleur2");
-            var image = document.getElementById("lampe2");
+            var image = document.getElementById("Lul_Arr2");
             if (image.src.match("lampe")) {
                 x.src = "image_web/chaleur.png";
                 if (x.style.display === "none") {
@@ -179,7 +179,7 @@ async function onMessageArrived(msg){
         }
         else if(potager == 3){
             var x = document.getElementById("chaleur3");
-            var image = document.getElementById("lampe3");
+            var image = document.getElementById("Lum_Arr3");
             if (image.src.match("lampe")) {
                 x.src = "image_web/chaleur.png";
                 if (x.style.display === "none") {
@@ -293,27 +293,27 @@ function changeImageArr() {
   }
 
 function changeLampe1() {
-    var image = document.getElementById("Lum_Arr1');
+    var image = document.getElementById("Lum_Arr1");
     image.src = "image_web/lampe.png";
   }
   function changeLampe2() {
-    var image = document.getElementById('Lum_Arr2');
+    var image = document.getElementById("Lum_Arr2");
     image.src = "image_web/lampe.png";
   }
   function changeLampe3() {
-    var image = document.getElementById('Lum_Arr3');
+    var image = document.getElementById("Lum_Arr3");
     image.src = "image_web/lampe.png";
   }
   function changeArr1() {
-    var image = document.getElementById('Lum_Arr1');
+    var image = document.getElementById("Lum_Arr1");
       image.src = "image_web/arrosoir.png";
   }
   function changeArr2() {
-    var image = document.getElementById('Lum_Arr2');
+    var image = document.getElementById("Lum_Arr2");
       image.src = "image_web/arrosoir.png";
   }
   function changeArr3() {
-    var image = document.getElementById('Lum_Arr3');
+    var image = document.getElementById("Lum_Arr3");
       image.src = "image_web/arrosoir.png";
   }
 
