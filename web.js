@@ -80,6 +80,10 @@ async function onMessageArrived(msg){
 
                 potager =2;
                 SwitchLedGreen();
+                await attente2();
+                TurnOffBlue();
+                await attente2();
+                TurnOffRed();
             }
             else if(potager == 2){
                 var monElement = document.getElementById("potager3");
@@ -91,6 +95,10 @@ async function onMessageArrived(msg){
 
                 potager =3;
                 SwitchLedRed();
+                await attente2();
+                TurnOffBlue();
+                await attente2();
+                TurnOffGreen();
             }
             else if(potager == 3){
                 var monElement = document.getElementById("potager1");
@@ -102,6 +110,10 @@ async function onMessageArrived(msg){
 
                 potager =1;
                 SwitchLedBlue();
+                await attente2();
+                TurnOffRed();
+                await attente2();
+                TurnOffGreen();
             }
             
         }
@@ -145,7 +157,7 @@ async function onMessageArrived(msg){
         }
         else if(potager == 2){
             var x = document.getElementById("chaleur2");
-            var image = document.getElementById("Lul_Arr2");
+            var image = document.getElementById("Lum_Arr2");
             if (image.src.match("lampe")) {
                 x.src = "image_web/chaleur.png";
                 if (x.style.display === "none") {
@@ -154,7 +166,6 @@ async function onMessageArrived(msg){
                         temp2 +=3;
                         if(temp2 >max)temp2 = max;
                         x.style.display = "none";
-                      
                   } else {
                     x.style.display = "none";
                   }
@@ -166,7 +177,7 @@ async function onMessageArrived(msg){
                 await attente();
                     temp2 -=3;
                     if(temp2 <min)temp2 = min;
-                        x.style.display = "none";
+                    x.style.display = "none";
               } else {
                 x.style.display = "none";
               }
@@ -264,6 +275,9 @@ function sleep(ms) {
   async function attente() {
     await sleep(4000);
   }
+  async function attente2() {
+    await sleep(500);
+  }
 
 
 function changeImageLampe() {
@@ -317,6 +331,28 @@ function changeLampe1() {
       image.src = "image_web/arrosoir.png";
   }
 
+  function TurnOffBlue() {
+    var stringMessage1 = "{\"id\": 1,\"state\": 0}";
+    message = new Paho.MQTT.Message(stringMessage1.toString());
+    message.destinationName = "isen01/led";
+    message.retained=true;
+    mqtt.send(message);
+}
+function TurnOffGreen() {
+    var stringMessage1 = "{\"id\": 2,\"state\": 0}";
+    message = new Paho.MQTT.Message(stringMessage1.toString());
+    message.destinationName = "isen01/led";
+    message.retained=true;
+    mqtt.send(message);
+}
+function TurnOffRed() {
+    var stringMessage1 = "{\"id\": 3,\"state\": 0}";
+    message = new Paho.MQTT.Message(stringMessage1.toString());
+    message.destinationName = "isen01/led";
+    message.retained=true;
+    mqtt.send(message);
+}
+
 function SwitchLedBlue() {
     var stringMessage ="";
     if (stateBlue) {
@@ -325,18 +361,9 @@ function SwitchLedBlue() {
         message.destinationName = "isen01/led";
         message.retained=true;
         mqtt.send(message);
-        stringMessage = "{\"id\": 2,\"state\": 0}";
-        message = new Paho.MQTT.Message(stringMessage.toString());
-        message.destinationName = "isen01/led";
-        message.retained=true;
-        mqtt.send(message);
-        stringMessage = "{\"id\": 3,\"state\": 0}";
-        message = new Paho.MQTT.Message(stringMessage.toString());
-        message.destinationName = "isen01/led";
-        message.retained=true;
-        mqtt.send(message);
         stateBlue = false;
         stateGreen = true;
+        stateRed = true;
     }
     else {
         stringMessage = "{\"id\": 1,\"state\": 0}";
@@ -356,18 +383,9 @@ function SwitchLedGreen() {
         message.destinationName = "isen01/led";
         message.retained=true;
         mqtt.send(message);
-        stringMessage = "{\"id\": 1,\"state\": 0}";
-        message = new Paho.MQTT.Message(stringMessage.toString());
-        message.destinationName = "isen01/led";
-        message.retained=true;
-        mqtt.send(message);
-        stringMessage = "{\"id\": 3,\"state\": 0}";
-        message = new Paho.MQTT.Message(stringMessage.toString());
-        message.destinationName = "isen01/led";
-        message.retained=true;
-        mqtt.send(message);
         stateGreen = false;
         stateRed = true;
+        stateBlue = true;
     }
     else {
         stringMessage = "{\"id\": 2,\"state\": 0}";
@@ -387,17 +405,8 @@ function SwitchLedRed() {
         message.destinationName = "isen01/led";
         message.retained=true;
         mqtt.send(message);
-        stringMessage = "{\"id\": 1,\"state\": 0}";
-        message = new Paho.MQTT.Message(stringMessage.toString());
-        message.destinationName = "isen01/led";
-        message.retained=true;
-        mqtt.send(message);
-        stringMessage = "{\"id\": 2,\"state\": 0}";
-        message = new Paho.MQTT.Message(stringMessage.toString());
-        message.destinationName = "isen01/led";
-        message.retained=true;
-        mqtt.send(message);
         stateRed = false;
+        stateGreen = true;
         stateBlue = true;
     }
     else {
@@ -409,20 +418,39 @@ function SwitchLedRed() {
         stateRed = true;
     }
 }
-/*
+
 function getTemperature(){
     var stringMessage =""
         stringMessage = "{\"request\": 1}";
         message = new Paho.MQTT.Message(stringMessage.toString());
         message.destinationName = "isen01/getTemp";
         message.retained=true;
-        mqtt.send(message);     
+        mqtt.send(message);
+        document.getElementById("temperature1").innerHTML = temp1+"°";
+                  document.getElementById("temperature2").innerHTML = temp2+"°";
+                  document.getElementById("temperature3").innerHTML = temp3+"°";
+                  document.getElementById("indice1").innerHTML = temp1+"°";
+                  document.getElementById("indice2").innerHTML = temp2+"°";
+                  document.getElementById("indice3").innerHTML = temp3+"°";
+                  var a = document.getElementById("ideale3");
+            if (temp3 <25){
+                a.src = "image_web/froid.png";
+            } else a.src = "image_web/ideale.png"
+            var b = document.getElementById("ideale2");
+            if (temp2 <20){
+                b.src = "image_web/froid.png";
+            } else if (temp2 >=20 && temp2<=25) b.src = "image_web/ideale.png";
+            else b.src = "image_web/chaud";
+            var c = document.getElementById("ideale1");
+            if (temp1 >20){
+                c.src = "image_web/chaud.png";
+            } else c.src = "image_web/ideale.png";     
 }  
-*/
+
 /*Problème: on reçoit un message de toutes les subscriptions dès le début */
 /*FONCTIONS POUR TEST QUAND LA CARTE N'EST PAS DISPONIBLE*/
 /*METTRE EN COMMENTAIRE AUSSI DANS WEB.HTML LES APPELS DES FONCTIONS */
-
+/*
 function getTemperature() {
     var stringMessage =""
                   stringMessage = "{\"value\": 27}";
@@ -468,4 +496,4 @@ function getTemperature() {
                   message.retained=true;
                   mqtt.send(message);     
  } 
-    
+ */   
