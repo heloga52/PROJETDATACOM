@@ -3,7 +3,6 @@
 
 body {
   background-image: url(image_web/fond_ecran.png);
-  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
